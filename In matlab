@@ -1,0 +1,36 @@
+%%%%%%%%%%%%%%%%Newton Non Linear%%%%%%%%%%%%%%%%%%%
+
+clear all
+format long
+n = 3;
+x = [ 0 0 0];
+x = x';
+tol = 10^(-6);
+max_iter = 200;
+iter = 1;
+
+F = [3*x(1)-cos(x(2)*x(3))-1/2;4*x(1)^2-625*x(2)^2+2*x(2)-1;exp(-x(1)*x(2))+20*x(3)+(10*pi-3)/3]
+J = [3 sin(x(2)*x(3))*x(3) x(2)*sin(x(2)*x(3));
+    8*x(1) -2*625*x(2)+2 0;
+    -x(2)*exp(-x(1)*x(2)) -x(1)*exp(-x(1)*x(2)) 20]
+
+while norm(F) >= tol
+    
+    delta_x = J\-F;
+    x = x+delta_x;
+    F = [3*x(1)-cos(x(2)*x(3))-1/2;4*x(1)^2-625*x(2)^2+2*x(2)-1;exp(-x(1)*x(2))+20*x(3)+(10*pi-3)/3]
+J = [3 sin(x(2)*x(3))*x(3) x(2)*sin(x(2)*x(3));
+    8*x(1) -2*625*x(2)+2 0;
+    -x(2)*exp(-x(1)*x(2)) -x(1)*exp(-x(1)*x(2)) 20]
+
+    iter = iter + 1;
+    
+    if iter == max_iter
+        break
+    end
+end
+
+iter
+ x
+ norm(F)
+
